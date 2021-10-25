@@ -46,7 +46,7 @@ jobs:
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
-          password: ${{ secrets.CR_TOKEN }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       - name: get porter bundle version
         id: getBundleVersion
         uses: mikefarah/yq@v4.9.6
