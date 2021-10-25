@@ -42,12 +42,12 @@ gcloud projects add-iam-policy-binding ${GCP_PROJECT_ID} \
 Generate a set of credentials to pass into porter.
 
 ```
-porter credential generate porter-terraform-example --reference ghcr.io/bdegeeter/porter-terraform-example:v0.1.1
+porter credential generate gcp-gke --reference ghcr.io/bdegeeter/gcp-gke:v0.1.1
 ```
 
 ```
-Generating new credential porter-terraform-example from bundle porter-terraform-example
-==> 1 credentials required for bundle porter-terraform-example
+Generating new credential gcp-gke from bundle gcp-gke
+==> 1 credentials required for bundle gcp-gke
 ? How would you like to set credential "gcloud-key-file"
   file path
 ? Enter the path that will be used to set credential "gcloud-key-file"
@@ -57,13 +57,13 @@ Generating new credential porter-terraform-example from bundle porter-terraform-
 ### Install Bundle
 
 ```
-porter install --reference ghcr.io/bdegeeter/porter-terraform-example:v0.1.1 --cred porter-terraform-example --param="gcp_project_id=${GCP_PROJECT_ID}"
+porter install --reference ghcr.io/bdegeeter/gcp-gke:v0.1.1 --cred gcp-gke --param="gcp_project_id=${GCP_PROJECT_ID}"
 ```
 
 ### Uninstall Bundle
 
 ```
-porter uninstall --reference ghcr.io/bdegeeter/porter-terraform-example:v0.1.1 --cred porter-terraform-example
+porter uninstall --reference ghcr.io/bdegeeter/gcp-gke:v0.1.1 --cred gcp-gke
 ```
 
 ## Porter Operator Integration
@@ -157,9 +157,9 @@ kubectl create secret generic -n default --from-file=credential=$HOME/.config/gc
 Use the name of the secret just created
 
 ```
- porter credential generate porter-terraform-example --reference ghcr.io/bdegeeter/porter-terraform-example:v0.1.1
-Generating new credential porter-terraform-example from bundle porter-terraform-example
-==> 1 credentials required for bundle porter-terraform-example
+ porter credential generate gcp-gke --reference ghcr.io/bdegeeter/gcp-gke:v0.1.1
+Generating new credential gcp-gke from bundle gcp-gke
+==> 1 credentials required for bundle gcp-gke
 ? How would you like to set credential "gcloud-key-file"
   secret
 ? Enter the secret that will be used to set credential "gcloud-key-file"
@@ -173,12 +173,12 @@ Generating new credential porter-terraform-example from bundle porter-terraform-
 apiVersion: porter.sh/v1
 kind: Installation
 metadata:
-  name: porter-terraform-example
+  name: gcp-gke
 spec:
-  reference: "ghcr.io/bdegeeter/porter-terraform-example:v0.1.1"
+  reference: "ghcr.io/bdegeeter/gcp-gke:v0.1.1"
   action: "install"
   credentialSets:
-   - porter-terraform-example
+   - gcp-gke
   parameters:
    gcp_project_id: <YOUR-GCP-PROJECT-ID> # required
 ```
@@ -187,5 +187,5 @@ spec:
 kubectl apply -f bundle-install.yaml
 ```
 ```
-kubectl logs -l installation=porter-terraform-example
+kubectl logs -l installation=gcp-gke
 ```

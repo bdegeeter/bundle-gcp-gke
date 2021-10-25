@@ -4,7 +4,7 @@ mixins:
       clientVersion: 1.0.0
   - exec
 
-name: porter-terraform-example
+name: gcp-gke
 version: 0.1.1
 description: "An example Porter Terraform/GKE bundle"
 registry: ghcr.io/bdegeeter
