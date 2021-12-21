@@ -1,8 +1,3 @@
-variable "myvar" {
-  description = "Value for 'myvar'"
-  default = "myvar"
-}
-
 variable "username" {
   default = "porter-default"
 }

@@ -1,7 +1,3 @@
-output "myvar" {
-  value = var.myvar
-}
-
 output "username" {
   value = var.username
 }
@@ -15,3 +11,16 @@ output "kubeconfig_content" {
   value       = module.k8s_cluster.kubeconfig_file_content
 }
 
+output "cluster_name" {
+  description = "GKE cluster name"
+  value       = module.k8s_cluster.cluster_name
+}
+
+output "project_id" {
+  description = "GKE cluster name"
+  value       = var.gcp_project_id
+}
+output "region" {
+  description = "GCP region"
+  value       = var.gcp_region
+}

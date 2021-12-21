@@ -27,11 +27,6 @@ locals {
   name                  = lower(replace("${var.username}-${random_string.r_string.id}", "/[_.@]+/", "-"))
 }
 
-resource "local_file" "myvar" {
-    content  = var.myvar
-    filename = "${path.module}/myvar"
-}
-
 module "k8s_cluster" {
   source            = "./modules/gcloud-k8s"
   name              = local.name
