@@ -5,7 +5,7 @@ mixins:
   - exec
 
 name: gcp-gke
-version: 0.1.1
+version: 0.2.0
 description: "An example Porter Terraform/GKE bundle"
 registry: ghcr.io/bdegeeter
 
@@ -15,11 +15,6 @@ parameters:
     path: /cnab/app/terraform/terraform.tfstate
     source:
       output: tfstate
-
-  - name: myvar
-    type: string
-    default: "porter example"
-    env: TF_VAR_myvar
 
   - name: username
     type: string
@@ -42,12 +37,12 @@ parameters:
 
   - name: gcp_location
     type: string
-    default: us-central1
+    default: us-central1-a
     env: TF_VAR_gcp_location
 
   - name: gcp_region
     type: string
-    default: us-central1-a
+    default: us-central1
     env: TF_VAR_gcp_region
 
 outputs:
@@ -55,17 +50,22 @@ outputs:
     type: file
     path: /cnab/app/terraform/terraform.tfstate
 
-  - name: myvar
-    type: string
-    applyTo:
-      - install
-
   - name: gcp_project_id
     type: string
     path: /cnab/app/gcp_project_id
     applyTo:
       # Tell porter to remember this value for subsequent actions
       # after install, re-injecting it back into the bundle
+      - install
+
+  - name: cluster_name
+    type: string
+    applyTo:
+      - install
+
+  - name: region
+    type: string
+    applyTo:
       - install
 
   - name: kubeconfig_content
@@ -95,7 +95,8 @@ install:
   - terraform:
       description: "Install Terraform assets"
       outputs:
-        - name: myvar
+        - name: cluster_name
+        - name: region
         - name: kubeconfig_content
 
 upgrade:
@@ -109,7 +110,8 @@ upgrade:
   - terraform:
       description: "Upgrade Terraform assets"
       outputs:
-        - name: myvar
+        - name: cluster_name
+        - name: region
         - name: kubeconfig_content
 
 show:
@@ -129,8 +131,7 @@ plan:
       flags:
         no-color:
         out: "/dev/null"
-        var:
-          - "'myvar={{bundle.parameters.myvar}}'"
+        var: []
 
 # Note: this can't be 'version:' as this would conflict with top-level field
 # Hence the need for the 'arguments:' override
