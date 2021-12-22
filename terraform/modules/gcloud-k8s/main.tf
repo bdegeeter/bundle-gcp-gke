@@ -20,8 +20,10 @@ resource "google_container_cluster" "default" {
 
   provider = google-beta
 
+  node_config {
+    machine_type = var.machine_type
+  }
   master_auth {
-
     client_certificate_config {
       issue_client_certificate = true
     }
