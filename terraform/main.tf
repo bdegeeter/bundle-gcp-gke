@@ -24,7 +24,7 @@ resource "random_string" "r_string" {
 }
 
 locals {
-  name                  = lower(replace("${var.username}-${random_string.r_string.id}", "/[_.@]+/", "-"))
+  name = lower(replace("${var.username}-${random_string.r_string.id}", "/[_.@]+/", "-"))
 }
 
 module "k8s_cluster" {
@@ -32,5 +32,6 @@ module "k8s_cluster" {
   name              = local.name
   project           = var.gcp_project_id
   location          = var.gcp_location
+  machine_type      = var.machine_type
   preemptible_nodes = false // must be set to false for deploy from pipeline
 }
