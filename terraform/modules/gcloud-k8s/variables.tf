@@ -4,8 +4,8 @@ variable "name" {
 }
 variable "project" {
 }
-variable "location" {
-  default = "us-central1-a"
+variable "region" {
+  default = "us-central1"
 }
 
 variable "initial_node_count" {

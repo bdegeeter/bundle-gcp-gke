@@ -31,7 +31,7 @@ module "k8s_cluster" {
   source            = "./modules/gcloud-k8s"
   name              = local.name
   project           = var.gcp_project_id
-  location          = var.gcp_location
+  region          = var.gcp_region
   machine_type      = var.machine_type
   preemptible_nodes = false // must be set to false for deploy from pipeline
 }
