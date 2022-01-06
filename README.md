@@ -42,7 +42,7 @@ gcloud projects add-iam-policy-binding ${GCP_PROJECT_ID} \
 Generate a set of credentials to pass into porter.
 
 ```
-porter credential generate gcp-gke --reference ghcr.io/bdegeeter/gcp-gke:v0.2.1
+porter credential generate gcp-gke --reference ghcr.io/bdegeeter/gcp-gke:v0.2.2
 ```
 
 ```
@@ -57,13 +57,13 @@ Generating new credential gcp-gke from bundle gcp-gke
 ### Install Bundle
 
 ```
-porter install --reference ghcr.io/bdegeeter/gcp-gke:v0.2.1 --cred gcp-gke --param="gcp_project_id=${GCP_PROJECT_ID}"
+porter install --reference ghcr.io/bdegeeter/gcp-gke:v0.2.2 --cred gcp-gke --param="gcp_project_id=${GCP_PROJECT_ID}"
 ```
 
 ### Uninstall Bundle
 
 ```
-porter uninstall --reference ghcr.io/bdegeeter/gcp-gke:v0.2.1 --cred gcp-gke
+porter uninstall --reference ghcr.io/bdegeeter/gcp-gke:v0.2.2 --cred gcp-gke
 ```
 
 ## Porter Operator Integration
@@ -157,7 +157,7 @@ kubectl create secret generic -n default --from-file=credential=$HOME/.config/gc
 Use the name of the secret just created
 
 ```
- porter credential generate gcp-gke --reference ghcr.io/bdegeeter/gcp-gke:v0.2.1
+ porter credential generate gcp-gke --reference ghcr.io/bdegeeter/gcp-gke:v0.2.2
 Generating new credential gcp-gke from bundle gcp-gke
 ==> 1 credentials required for bundle gcp-gke
 ? How would you like to set credential "gcloud-key-file"
@@ -175,7 +175,7 @@ kind: Installation
 metadata:
   name: gcp-gke
 spec:
-  reference: "ghcr.io/bdegeeter/gcp-gke:v0.2.1"
+  reference: "ghcr.io/bdegeeter/gcp-gke:v0.2.2"
   action: "install"
   credentialSets:
    - gcp-gke
