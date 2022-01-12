@@ -40,7 +40,6 @@ data "template_file" "kubeconfig" {
     cluster_name  = google_container_cluster.default.name
     endpoint      = google_container_cluster.default.endpoint
     cluster_ca    = google_container_cluster.default.master_auth[0].cluster_ca_certificate
-    cluster_token = data.google_client_config.default.access_token
   }
 }
 
