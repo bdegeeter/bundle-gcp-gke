@@ -39,6 +39,7 @@ parameters:
       # porter will inject it for upgrade and uninstall
       - upgrade
       - uninstall
+      - reAuth
 
   - name: gcp_location
     type: string
@@ -78,6 +79,7 @@ outputs:
     applyTo:
       - install
       - upgrade
+      - reAuth
 
 credentials:
   - name: gcloud-key-file
@@ -137,6 +139,25 @@ plan:
         no-color:
         out: "/dev/null"
         var: []
+
+reAuth:
+  - gcloud:
+      description: "Authenticate"
+      groups:
+        - auth
+      command: activate-service-account
+      flags:
+        key-file: gcloud.json
+  - terraform:
+      description: "Refresh Terraform assets including auth key"
+      arguments:
+        - "apply"
+        - "-auto-approve"
+        - "-target=module.k8s_cluster.local_file.kubeconfig"
+      outputs:
+        - name: cluster_name
+        - name: region
+        - name: kubeconfig_content
 
 # Note: this can't be 'version:' as this would conflict with top-level field
 # Hence the need for the 'arguments:' override
